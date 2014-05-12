@@ -15,17 +15,18 @@ func main() {
 	} else {
 		status := check(os.Args[1])
 		if status != nil {
-			fmt.Printf("ERROR %s\n", status.Error())
+			fmt.Printf("ERROR: %s\n", status.Error())
 			os.Exit(2)
 		}
 	}
 }
-func check(rurl string) error {
+
+func check(url string) error {
 	var dialer websocket.Dialer
 	config := tls.Config{}
 	config.InsecureSkipVerify = true
 	dialer.TLSClientConfig = &config
-	ws, _, err := dialer.Dial(rurl, nil)
+	ws, _, err := dialer.Dial(url, nil)
 	if err != nil {
 		return err
 	}
